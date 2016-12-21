@@ -12,4 +12,8 @@
 
 int main(){
 	uint8_t x = ADCSRA;
+	/** this is an exmple comment
+	 * this is just here to how
+	 * pushing works in git
+	 */
 }
