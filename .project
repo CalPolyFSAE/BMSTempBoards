@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>AnalogCANBoards</name>
+	<name>BMSTempBoards</name>
 	<comment></comment>
 	<projects>
 		<project>AVRLibrary</project>
-		<project>AnalogCANBoards</project>
+		<project>BMSTempBoards</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
