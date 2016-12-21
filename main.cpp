@@ -2,7 +2,7 @@
  * Project: BMS Temp Board
  *
  *  Created on: Dec 18, 2016
- *      Author: nmah
+ *      Author: Nick Mah, Jason Zhou
  */
 
 #define OUT4		7
