@@ -55,13 +55,13 @@ void Init_ADCs(void){
 	DIDR0 = (1 << OUT0) | (1 << OUT1) | (1 << OUT2) | (1 << OUT3) | (1 << OUT4);
 }
 
-uint16_t read_MCU_ADC(uint8_t T_Batt){
+uint16_t read_MCU_ADC(uint8_t OUT){
 	uint16_t ADCvoltage;
 	ADMUX &= 11111000; //clearing mux
-	ADMUX |= T_Batt; //setting muc channel to correct pin
+	ADMUX |= OUT; //setting mux channel to correct pin
 	ADCSRA |= (1 << ADSC); //starting conversion
 	while (!(ADCSRA & (1 << ADIF))); //waiting until interrupt flag triggers
-	ADCSRA |= (1 << ADSC); //clearing interrupt flag(writing to flag resets flag)
+	ADCSRA |= (1 << ADSC); //clearing interrupt flag (writing to flag resets flag)
 	ADCvoltage = ADCH << ADCL; //returning ADC voltage
 
 	return ADCvoltage;
