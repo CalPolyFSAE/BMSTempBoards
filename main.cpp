@@ -55,33 +55,45 @@ void Init_ADCs(void){
 	DIDR0 = (1 << OUT0) | (1 << OUT1) | (1 << OUT2) | (1 << OUT3) | (1 << OUT4);
 }
 
+uint8_t Cycle_Through(uint8_t Iterator){ //cycling through mux inputs
+
+	PORTC &= 0xF0; //clearing mux selector
+	PORTC |= Iterator; //setting mux selector
+	Iterator ++; //iterating selector
+	return Iterator;
+}
+
 uint16_t read_MCU_ADC(uint8_t OUT){
 	uint16_t ADCvoltage;
-	ADMUX &= 11111000; //clearing mux
+	ADMUX &= 11111000; //clearing adc mux
 	ADMUX |= OUT; //setting mux channel to correct pin
 	ADCSRA |= (1 << ADSC); //starting conversion
 	while (!(ADCSRA & (1 << ADIF))); //waiting until interrupt flag triggers
 	ADCSRA |= (1 << ADSC); //clearing interrupt flag (writing to flag resets flag)
 	ADCvoltage = (ADCH << 8) |ADCL; //returning ADC voltage
-
 	return ADCvoltage;
 }
 
 int main(){
-	unsigned char i;
 
 	// Start Initialize ADCs
 	Init_ADCs();
 	// End Initialize ADCs
 
-	//Start Set outputs high
-	PORTC = (1 << PC3) | (1 << PC2) | (1 << PC1) | (1 << PC0);
 	//Define directions of port pins
 	DDRC = (1 << S0) | (1 << S1) | (1 << S2) | (1 << S3);
-	//Insert nop for synchronization (not sure how this works)
-	_NOP();
-	//Read port pins
-	i = PINC;
+
+	uint8_t Iterator = 0; //resetting iterator
+	uint8_t OUT = 3; //resetting which mux to output
+	while(Iterator < 16){ //cycling through the mux
+			read_MCU_ADC(OUT); //reading ADC voltage
+			//push_to_MB function (don't know CAN)
+			OUT ++;
+		if(OUT >= 8){
+			Iterator = Cycle_Through(Iterator); //iterating selector
+			OUT = 3; //resetting mux output
+		}
+
 
 }
 
