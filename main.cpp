@@ -62,11 +62,11 @@ uint16_t read_MCU_ADC(uint8_t OUT){
 	ADCSRA |= (1 << ADSC); //starting conversion
 	while (!(ADCSRA & (1 << ADIF))); //waiting until interrupt flag triggers
 	ADCSRA |= (1 << ADSC); //clearing interrupt flag (writing to flag resets flag)
-	ADCvoltage = ADCH << ADCL; //returning ADC voltage
+	ADCvoltage = (ADCH << 8) |ADCL; //returning ADC voltage
 
 	return ADCvoltage;
 }
-//still need to fix the adcs part
+
 int main(){
 	unsigned char i;
 
@@ -78,7 +78,7 @@ int main(){
 	PORTC = (1 << PC3) | (1 << PC2) | (1 << PC1) | (1 << PC0);
 	//Define directions of port pins
 	DDRC = (1 << S0) | (1 << S1) | (1 << S2) | (1 << S3);
-	//Insert nop for synchronization
+	//Insert nop for synchronization (not sure how this works)
 	_NOP();
 	//Read port pins
 	i = PINC;
