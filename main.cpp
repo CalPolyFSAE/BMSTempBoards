@@ -52,10 +52,16 @@ void Init_ADCs(void){
 	ADCSRA = 0x87 ;	//Turn On ADC and set prescaler (CLK/128)
 	ADCSRB = 0x00;	//turn off autotrigger
 	ADMUX = 0x43;    	//Set ADC channel ADC3, set compare voltage to AVcc
+	DIDR0 = (1 << OUT0) | (1 << OUT1) | (1 << OUT2) | (1 << OUT3) | (1 << OUT4);
 }
+uint16_t read_ADC(uint8_t channel){
+	uint16_t voltage;
+	voltage = jfskl;
+	return voltage;
+}
+
 //still need to fix the adcs part
 int main(){
-
 	unsigned char i;
 
 	// Start Initialize ADCs
@@ -72,3 +78,4 @@ int main(){
 	i = PINC;
 
 }
+
