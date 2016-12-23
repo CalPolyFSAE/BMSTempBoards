@@ -22,16 +22,20 @@
 #define TX			1
 #define RX			0
 
+#define F_CPU	16000000UL //16MHz
+#define BAUD 9600
+
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <avr/io.h>
+#include <util/setbaud.h>
 
 /** pin map on MCU:
  *
  *Not sure what to do with XTAL1, XTAL2
  *
- * OUT4 = PF7 Ain for  71-64, 7-0
+ * OUT4 = PF7 Ain for  71-64,7-0
  * OUT3 = PF6 Ain for 63-56, 15-8
  * OUT0 = PF5 Ain for 55-48, 23-16
  * OUT2 = PF4 Ain for 43-36, 35-28
@@ -57,28 +61,50 @@ void Init_ADCs(void){
 
 uint8_t Cycle_Through(uint8_t Iterator){ //cycling through mux inputs
 
-	PORTC &= 0xF0; //clearing mux selector
-	PORTC |= Iterator; //setting mux selector
-	Iterator ++; //iterating selector
+	PORTC &= 0xF0; //Clearing mux selector
+	PORTC |= Iterator; //Setting mux selector
+	Iterator ++; //Iterating selector
 	return Iterator;
 }
 
-uint16_t read_MCU_ADC(uint8_t OUT){
+uint16_t Read_MCU_ADC(uint8_t OUT){
+
 	uint16_t ADCvoltage;
-	ADMUX &= 11111000; //clearing adc mux
-	ADMUX |= OUT; //setting mux channel to correct pin
-	ADCSRA |= (1 << ADSC); //starting conversion
-	while (!(ADCSRA & (1 << ADIF))); //waiting until interrupt flag triggers
-	ADCSRA |= (1 << ADSC); //clearing interrupt flag (writing to flag resets flag)
-	ADCvoltage = (ADCH << 8) |ADCL; //returning ADC voltage
+	ADMUX &= 11111000; //Clearing adc mux
+	ADMUX |= OUT; //Setting mux channel to correct pin
+	ADCSRA |= (1 << ADSC); //Starting conversion
+	while (!(ADCSRA & (1 << ADIF))); //Waiting until interrupt flag triggers
+	ADCSRA |= (1 << ADSC); //Clearing interrupt flag (writing to flag resets flag)
+	ADCvoltage = (ADCH << 8) |ADCL; //Returning ADC voltage
 	return ADCvoltage;
+}
+
+void Init_UART(void){
+
+	UBRR0H = UBRRH_VALUE; //Set Baudrate
+	UBRR0L = UBRRL_VALUE;
+
+	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); //8-bit data (not sure if right)
+	UCSR0B = _BV(RXEN0) | _BV(TXEN0); //Enable RX and TX
+}
+
+void UART_Putuint16(uint16_t i){
+
+	UDR0 = i;
+	loop_until_bit_is_set(UCSR0A, TXC0); //Wait until transmission is ready
+}
+
+uint16_t UART_Getuint16(void){
+
+	loop_until_bit_is_set(UCSR0A, RXC0); //Wait for data
+	return UDR0;
 }
 
 int main(){
 
-	// Start Initialize ADCs
-	Init_ADCs();
-	// End Initialize ADCs
+	Init_ADCs(); // Initialize ADCs
+	Init_UART(); //Initialize UART
+
 
 	//Define directions of port pins
 	DDRC = (1 << S0) | (1 << S1) | (1 << S2) | (1 << S3);
@@ -86,7 +112,7 @@ int main(){
 	uint8_t Iterator = 0; //resetting iterator
 	uint8_t OUT = 3; //resetting which mux to output
 	while(Iterator < 16){ //cycling through the mux
-			read_MCU_ADC(OUT); //reading ADC voltage
+			Read_MCU_ADC(OUT); //reading ADC voltage
 			//push_to_MB function (don't know CAN)
 			OUT ++;
 		if(OUT >= 8){
