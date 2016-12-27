@@ -79,27 +79,6 @@ uint16_t Read_MCU_ADC(uint8_t OUT){
 	return ADCvoltage;
 }
 
-void Init_UART(void){
-
-	UBRR0H = UBRRH_VALUE; //Set Baudrate
-	UBRR0L = UBRRL_VALUE;
-
-	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); //8-bit data (not sure if right)
-	UCSR0B = _BV(RXEN0) | _BV(TXEN0); //Enable RX and TX
-}
-
-void UART_Putuint16(uint16_t i){
-
-	UDR0 = i;
-	loop_until_bit_is_set(UCSR0A, TXC0); //Wait until transmission is ready
-}
-
-uint16_t UART_Getuint16(void){
-
-	loop_until_bit_is_set(UCSR0A, RXC0); //Wait for data
-	return UDR0;
-}
-
 int main(){
 
 	Init_ADCs(); // Initialize ADCs
