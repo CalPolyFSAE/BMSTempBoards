@@ -12,12 +12,12 @@ void initADC(){
 
 
 
-uint8_t lowPrecisionRead(){
-	ADCSRA |= (1<<ADSC); //adc start conversion
-	while(ADCSRA & 0x40) {} //wait for conversion bit to go low
-	uint8_t val = ADCH;
-	return val;
-}
+// uint8_t lowPrecisionRead(){
+// 	ADCSRA |= (1<<ADSC); //adc start conversion
+// 	while(ADCSRA & 0x40) {} //wait for conversion bit to go low
+// 	uint8_t val = ADCH;
+// 	return val;
+// }
 
 uint16_t highPrecisionRead(){
 	ADCSRA |= (1<<ADSC);
