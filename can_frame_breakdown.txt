@@ -1,0 +1,40 @@
+
+
+DATA FRAME - used to send packets
+	1 bit Start Of Frame; active low, indicates beginning of frame
+	12 bit Arbitration Field;
+		11 bit device identifier
+		1 bit Remote Transmission Request (low for data)
+	6 bit Control Field;
+		1 bit identifier extension- high indicates 18 bit secondary identifier follows, low indicates standard frame use
+		1 bit r0
+		4 bit data length code- number of bytes 0-8 in data field
+	0-8 byte Data Field;
+	16 bit Cyclic Redundant Check field;
+		15 bits of CRC for frame integrity
+		1 bit of delimination
+	2 bit ACKnowledgement field
+		1 bit of ACK- low on sending, overwritten to high on acceptance
+		1 bit of delimination
+	7 bit End of Frame field - all high
+	3 bit Intermission field - all high
+
+
+
+REMOTE FRAME - used to request data from some other sender
+	1 Start Of Frame; active low, indicates beginning of frame
+	12 Arbitration Field;
+		11 bit device identifier
+		1 bit Remote Transmission Request (high for remote)
+	6 bit Control Field;
+		1 bit identifier extension- high indicates 18 bit secondary identifier follows, low indicates standard frame use
+		1 bit r0
+		4 bit data length code- number of bytes 0-8 requested from sender
+	16 bit Cyclic Redundant Check field;
+		15 bits of CRC for frame integrity
+		1 bit of delimination
+	2 bit ACKnowledgement field
+		1 bit of ACK- low on sending, overwritten to high on acceptance
+		1 bit of delimination
+	7 bit End of Frame field - all high
+	3 bit Intermission field - all high
