@@ -1,27 +1,21 @@
-//device name for io.h
+//device name for io.h	
 #define __AVR_AT90CAN128__
 
-#define DEVICE_ID 0x00;
+#define ID_BASE 0x00;
 
 //uncomment for only 8 bits of precision:
 //#define LOW_PRECISION
 
 #include <avr/io.h>
-#include <arduino/can_lib.h>
+#include <CPFECANLib.h>
 #include "adc.h"
 #include "bms_can.h"
-
-extern canlib CAN;
 
 void init();
 
 int main(){
 
 	init();
-
-	st_cmd_t CANctrl;
-
-	CANctrl.id.std = DEVICE_ID;			//standard 11-bit ID length
 
 	uint8_t thermistorCount = 72;
 
@@ -44,9 +38,9 @@ int main(){
 
 			TIFR1 |= (1<<OCF1A);
 			
-			while(!send(&CANctrl, temperatures_8, thermistorCount*2));
+			send(temperatures_8);
 			
-			TCNT1 = 0x0; //reset clock
+			//TCNT1 = 0x0; //reset clock
 
 			read = 0;
 
@@ -69,8 +63,7 @@ void init(){
 
 	initADC();
 
-	CAN.set_baudrate(1000);
-	CAN.init(0);
+
 	
 }
 
