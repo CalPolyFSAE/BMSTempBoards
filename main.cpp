@@ -1,7 +1,7 @@
 //device name for io.h	
 #define __AVR_AT90CAN128__
 
-#define ID_BASE 0x00;
+#define ID_BASE 0x00C00000;
 
 //uncomment for only 8 bits of precision:
 //#define LOW_PRECISION
