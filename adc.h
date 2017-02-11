@@ -1,6 +1,6 @@
 #ifndef _ADC_H_
 #define _ADC_H_
-
+#include <avr/io.h>
 void initADC();
 
 // uint8_t lowPrecisionRead();			//return value in ADCL
