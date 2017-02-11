@@ -75,131 +75,131 @@ void init(){
 void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	PORTC = 0x00;
 
-	temperatures[55] = highPrecisionRead();
-	temperatures[47] = highPrecisionRead();
-	temperatures[43] = highPrecisionRead();
-	temperatures[63] = highPrecisionRead();
-	temperatures[71] = highPrecisionRead();
+	temperatures_16[55] = highPrecisionRead();
+	temperatures_16[47] = highPrecisionRead();
+	temperatures_16[43] = highPrecisionRead();
+	temperatures_16[63] = highPrecisionRead();
+	temperatures_16[71] = highPrecisionRead();
 
 	PORTC = 0x01;
 
-	temperatures[54] = highPrecisionRead();
-	temperatures[46] = highPrecisionRead();
-	temperatures[42] = highPrecisionRead();
-	temperatures[62] = highPrecisionRead();
-	temperatures[70] = highPrecisionRead();
+	temperatures_16[54] = highPrecisionRead();
+	temperatures_16[46] = highPrecisionRead();
+	temperatures_16[42] = highPrecisionRead();
+	temperatures_16[62] = highPrecisionRead();
+	temperatures_16[70] = highPrecisionRead();
 
 	PORTC = 0x02;
 
-	temperatures[53] = highPrecisionRead();
-	temperatures[45] = highPrecisionRead();
-	temperatures[41] = highPrecisionRead();
-	temperatures[61] = highPrecisionRead();
-	temperatures[69] = highPrecisionRead();
+	temperatures_16[53] = highPrecisionRead();
+	temperatures_16[45] = highPrecisionRead();
+	temperatures_16[41] = highPrecisionRead();
+	temperatures_16[61] = highPrecisionRead();
+	temperatures_16[69] = highPrecisionRead();
 
 	PORTC = 0x03;
 
-	temperatures[52] = highPrecisionRead();
-	temperatures[44] = highPrecisionRead();
-	temperatures[40] = highPrecisionRead();
-	temperatures[60] = highPrecisionRead();
-	temperatures[68] = highPrecisionRead();
+	temperatures_16[52] = highPrecisionRead();
+	temperatures_16[44] = highPrecisionRead();
+	temperatures_16[40] = highPrecisionRead();
+	temperatures_16[60] = highPrecisionRead();
+	temperatures_16[68] = highPrecisionRead();
 
 	PORTC = 0x04;
 
-	temperatures[51] = highPrecisionRead();
+	temperatures_16[51] = highPrecisionRead();
 	iterateInternal();
-	temperatures[39] = highPrecisionRead();
-	temperatures[59] = highPrecisionRead();
-	temperatures[67] = highPrecisionRead();
+	temperatures_16[39] = highPrecisionRead();
+	temperatures_16[59] = highPrecisionRead();
+	temperatures_16[67] = highPrecisionRead();
 
 	PORTC = 0x05;
 
-	temperatures[50] = highPrecisionRead();
+	temperatures_16[50] = highPrecisionRead();
 	iterateInternal();
-	temperatures[38] = highPrecisionRead();
-	temperatures[58] = highPrecisionRead();
-	temperatures[66] = highPrecisionRead();
+	temperatures_16[38] = highPrecisionRead();
+	temperatures_16[58] = highPrecisionRead();
+	temperatures_16[66] = highPrecisionRead();
 
 	PORTC = 0x06;
 
-	temperatures[49] = highPrecisionRead();
+	temperatures_16[49] = highPrecisionRead();
 	iterateInternal();
-	temperatures[37] = highPrecisionRead();
-	temperatures[57] = highPrecisionRead();
-	temperatures[65] = highPrecisionRead();
+	temperatures_16[37] = highPrecisionRead();
+	temperatures_16[57] = highPrecisionRead();
+	temperatures_16[65] = highPrecisionRead();
 
 	PORTC = 0x07;
 
-	temperatures[48] = highPrecisionRead();
+	temperatures_16[48] = highPrecisionRead();
 	iterateInternal();
-	temperatures[36] = highPrecisionRead();
-	temperatures[56] = highPrecisionRead();
-	temperatures[64] = highPrecisionRead();
+	temperatures_16[36] = highPrecisionRead();
+	temperatures_16[56] = highPrecisionRead();
+	temperatures_16[64] = highPrecisionRead();
 
 	PORTC = 0x08;
 
-	temperatures[23] = highPrecisionRead();
+	temperatures_16[23] = highPrecisionRead();
 	iterateInternal();
-	temperatures[35] = highPrecisionRead();
-	temperatures[15] = highPrecisionRead();
-	temperatures[7] = highPrecisionRead();
+	temperatures_16[35] = highPrecisionRead();
+	temperatures_16[15] = highPrecisionRead();
+	temperatures_16[7] = highPrecisionRead();
 
 	PORTC = 0x09;
 
-	temperatures[22] = highPrecisionRead();
+	temperatures_16[22] = highPrecisionRead();
 	iterateInternal();
-	temperatures[34] = highPrecisionRead();
-	temperatures[14] = highPrecisionRead();
-	temperatures[6] = highPrecisionRead();
+	temperatures_16[34] = highPrecisionRead();
+	temperatures_16[14] = highPrecisionRead();
+	temperatures_16[6] = highPrecisionRead();
 
 	PORTC = 0x0A;
 
-	temperatures[21] = highPrecisionRead();
+	temperatures_16[21] = highPrecisionRead();
 	iterateInternal();
-	temperatures[33] = highPrecisionRead();
-	temperatures[13] = highPrecisionRead();
-	temperatures[5] = highPrecisionRead();
+	temperatures_16[33] = highPrecisionRead();
+	temperatures_16[13] = highPrecisionRead();
+	temperatures_16[5] = highPrecisionRead();
 
 	PORTC = 0x0B;
 
-	temperatures[20] = highPrecisionRead();
+	temperatures_16[20] = highPrecisionRead();
 	iterateInternal();
-	temperatures[32] = highPrecisionRead();
-	temperatures[12] = highPrecisionRead();
-	temperatures[4] = highPrecisionRead();
+	temperatures_16[32] = highPrecisionRead();
+	temperatures_16[12] = highPrecisionRead();
+	temperatures_16[4] = highPrecisionRead();
 
 	PORTC = 0x0C;
 
-	temperatures[19] = highPrecisionRead();
-	temperatures[27] = highPrecisionRead();
-	temperatures[31] = highPrecisionRead();
-	temperatures[11] = highPrecisionRead();
-	temperatures[3] = highPrecisionRead();
+	temperatures_16[19] = highPrecisionRead();
+	temperatures_16[27] = highPrecisionRead();
+	temperatures_16[31] = highPrecisionRead();
+	temperatures_16[11] = highPrecisionRead();
+	temperatures_16[3] = highPrecisionRead();
 
 	PORTC = 0x0D;
 
-	temperatures[18] = highPrecisionRead();
-	temperatures[26] = highPrecisionRead();
-	temperatures[30] = highPrecisionRead();
-	temperatures[10] = highPrecisionRead();
-	temperatures[2] = highPrecisionRead();
+	temperatures_16[18] = highPrecisionRead();
+	temperatures_16[26] = highPrecisionRead();
+	temperatures_16[30] = highPrecisionRead();
+	temperatures_16[10] = highPrecisionRead();
+	temperatures_16[2] = highPrecisionRead();
 
 	PORTC = 0x0E;
 
-	temperatures[17] = highPrecisionRead();
-	temperatures[25] = highPrecisionRead();
-	temperatures[29] = highPrecisionRead();
-	temperatures[9] = highPrecisionRead();
-	temperatures[1] = highPrecisionRead();
+	temperatures_16[17] = highPrecisionRead();
+	temperatures_16[25] = highPrecisionRead();
+	temperatures_16[29] = highPrecisionRead();
+	temperatures_16[9] = highPrecisionRead();
+	temperatures_16[1] = highPrecisionRead();
 
 	PORTC = 0x0F;
 
-	temperatures[16] = highPrecisionRead();
-	temperatures[24] = highPrecisionRead();
-	temperatures[28] = highPrecisionRead();
-	temperatures[8] = highPrecisionRead();
-	temperatures[0] = highPrecisionRead();
+	temperatures_16[16] = highPrecisionRead();
+	temperatures_16[24] = highPrecisionRead();
+	temperatures_16[28] = highPrecisionRead();
+	temperatures_16[8] = highPrecisionRead();
+	temperatures_16[0] = highPrecisionRead();
 
 	for(int i = 0; i < 72; i++){
 		temperatures_8[2*i] = (uint8_t)(temperatures_16[i]>>8);
