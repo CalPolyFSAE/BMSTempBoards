@@ -16,8 +16,6 @@ uint16_t highPrecisionRead(){
 	return val;
 }
 
-
-
 void iterateInternal(){
 	uint8_t cur = ADMUX & 0x0F;
 	ADMUX &= 0xF0;

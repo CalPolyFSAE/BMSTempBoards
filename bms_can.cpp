@@ -9,8 +9,7 @@ void send(uint8_t *data){
 
 	for(int i = 0; i < 18; i++){
 
-		msg.identifier.extended = ID_BASE + i;
-		msg.dlc = 8;
+		msg.identifier.extended = ID_BASE + i + ID_INDEX;
 		msg.rtr = 0;
 		msg.ide = 1;
 		msg.data = data + i*8;

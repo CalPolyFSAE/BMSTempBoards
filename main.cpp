@@ -1,7 +1,9 @@
 //device name for io.h	
 #define __AVR_AT90CAN128__
 
-#define ID_BASE 0x00C00000;
+#define ID_BASE 0x00C00000; //base ID for CAN Address
+#define BOARD_NUM 0x0; //represents which board in the modules the current board is
+#define NUM_TEMPS 288; //number of temperatures being read per board
 
 //uncomment for only 8 bits of precision:
 //#define LOW_PRECISION
