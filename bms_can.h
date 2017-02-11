@@ -5,4 +5,4 @@
 #define NUM_TEMPS 288 //number of temperatures being read per board
 #define ID_INDEX BOARD_NUM// * NUM_TEMPS; //indexing can message for can boards
 
-uint8_t send(st_cmd_t *CANctrl, uint16_t *data, uint8_t size);
+void send(uint8_t *);
