@@ -1,5 +1,5 @@
 #include "bms_can.h"
-#include <AVRLibrary/CPFECANLib.h>
+#include "AVRLibrary/CPFECANLib.h"
 
 unsigned char can_get_mob_free(void);
 
@@ -10,6 +10,7 @@ void send(uint8_t *data){
 	for(int i = 0; i < 18; i++){
 
 		msg.identifier.extended = ID_BASE + i + ID_INDEX;
+		msg.dlc = 8;
 		msg.rtr = 0;
 		msg.ide = 1;
 		msg.data = data + i*8;
@@ -17,8 +18,17 @@ void send(uint8_t *data){
 		uint8_t MOb = NO_MOB;
 		while(MOb == NO_MOB) MOb = can_get_mob_free();
 
+//		if((msg.data[0]) == 0 &&
+//				msg.data[1] == 0 &&
+//				msg.data[2] == 0 &&
+//				msg.data[3] == 0 &&
+//				msg.data[4] == 0 &&
+//				msg.data[5] == 0 &&
+//				msg.data[6] == 0 &&
+//				msg.data[7] == 0){
+//		} else {
 		CPFECANLib::sendMsgUsingMOB(MOb, &msg);
-
+//		}
 	}
 
 }

@@ -13,6 +13,8 @@
 #include "adc.h"
 #include "bms_can.h"
 
+CPFECANLib can;
+
 uint16_t highPrecisionRead(){
 	ADCSRA |= (1<<ADSC);
 	while(ADCSRA & 0x40);
@@ -51,6 +53,8 @@ int main(){
 
 	uint8_t temperatures_8[thermistorCount*2];
 
+	uint8_t dummy[thermistorCount*2] = {0};
+
 	while(1) {
 
 		if(!read){
@@ -88,9 +92,11 @@ void init(){
 	OCR1A = 0x3D09; 											// 16M/1024
 
 	initADC();
-
-
 	
+
+
+	CPFECANLib::init(CPFECANLib::CAN_BAUDRATE::B1M, nullptr);
+
 }
 
 
