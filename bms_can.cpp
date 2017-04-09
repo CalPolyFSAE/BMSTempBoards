@@ -1,16 +1,23 @@
 #include "bms_can.h"
 #include "AVRLibrary/CPFECANLib.h"
 
+
+#define ID_BASE 0x00C00000
+
+constexpr uint32_t BOARD_NUM = 0x2;
+
 unsigned char can_get_mob_free(void);
 
-extern uint32_t ID_BASE;
-extern uint8_t BOARD_NUM;
+
+
+//extern uint32_t ID_BASE;
+//extern uint32_t BOARD_NUM;
 
 void send(uint8_t *data){
 	
 	CPFECANLib::MSG msg;
 
-	for(int i = 0; i < 18; i++){
+	for(uint32_t i = 0; i < 18; i++){
 
 		msg.identifier.extended = ID_BASE + BOARD_NUM + i;
 		msg.dlc = 8;
@@ -25,7 +32,7 @@ void send(uint8_t *data){
 
 
 //find next free mob- copied out of can_lib.cpp
-unsigned char can_get_mob_free(void){
+/*unsigned char can_get_mob_free(void){
 
     unsigned char mob_number, page_saved;
 
@@ -41,4 +48,4 @@ unsigned char can_get_mob_free(void){
     }
     CANPAGE = page_saved;
     return (NO_MOB);
-}
+}*/
