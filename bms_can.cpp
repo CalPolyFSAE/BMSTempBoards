@@ -19,7 +19,7 @@ void send(uint8_t *data){
 
 	for(uint32_t i = 0; i < 18; i++){
 
-		msg.identifier.extended = ID_BASE +18 *  BOARD_NUM + i;
+		msg.identifier.extended = ID_BASE + BOARD_NUM + i;
 		msg.dlc = 8;
 		msg.rtr = 0;
 		msg.ide = 1;
