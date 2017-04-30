@@ -6,8 +6,8 @@
 #include "adc.h"
 #include "bms_can.h"
 
-const uint32_t ID_BASE = 0x00C00000; //base ID for CAN Address
-const uint32_t BOARD_NUM = 0x0; 		//represents which board in the modules the current board is
+constexpr uint32_t ID_BASE = 0x00C00000; //base ID for CAN Address
+//constexpr uint32_t BOARD_NUM = 0x0; 		//represents which board in the modules the current board is
 
 void readtemps(uint16_t*, uint8_t*);
 
@@ -77,7 +77,7 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 	for(int i = 12; i < 16; i++){
 		PORTC = i;
-		temperatures_16[27-i] = highPrecisionRead();
+		temperatures_16[27-(i-12)] = highPrecisionRead();
 	}
 
 	ADMUX &= 0xE0;
@@ -89,7 +89,7 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 	for(int i = 8; i < 16; i++){
 		PORTC = i;
-		temperatures_16[35-i] = highPrecisionRead();
+		temperatures_16[35-(i-8)] = highPrecisionRead();
 	}
 
 	ADMUX &= 0xE0;
@@ -101,7 +101,7 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 	for(int i = 8; i < 16; i++){
 		PORTC = i;
-		temperatures_16[23-i] = highPrecisionRead();
+		temperatures_16[23-(i-8)] = highPrecisionRead();
 	}
 
 	ADMUX &= 0xE0;
@@ -113,7 +113,7 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 	for(int i = 8; i < 16; i++){
 		PORTC = i;
-		temperatures_16[15-i] = highPrecisionRead();
+		temperatures_16[15-(i-8)] = highPrecisionRead();
 	}
 
 
@@ -126,7 +126,7 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 	for(int i = 8; i < 16; i++){
 		PORTC = i;
-		temperatures_16[7-i] = highPrecisionRead();
+		temperatures_16[7-(i-8)] = highPrecisionRead();
 	}
 
 	for(int i = 0; i < 72; i++){
