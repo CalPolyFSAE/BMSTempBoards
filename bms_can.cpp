@@ -1,5 +1,5 @@
 #include "bms_can.h"
-#include "AVRLibrary/CPFECANLib.h"
+#include <AVRLibrary/CPFECANLib.h>
 
 
 #define ID_BASE 0x00C00000
@@ -25,14 +25,17 @@ void send(uint8_t *data){
 		msg.ide = 1;
 		msg.data = data + i*8;
 
-		CPFECANLib::sendMsgUsingMOB(i%15, &msg);
+		uint8_t mob_number = NO_MOB;
+		while(mob_number == NO_MOB) mob_number = can_get_mob_free();
+
+		CPFECANLib::sendMsgUsingMOB(mob_number, &msg);
 	}
 
 }
 
 
 //find next free mob- copied out of can_lib.cpp
-/*unsigned char can_get_mob_free(void){
+unsigned char can_get_mob_free(void){
 
     unsigned char mob_number, page_saved;
 
@@ -48,4 +51,4 @@ void send(uint8_t *data){
     }
     CANPAGE = page_saved;
     return (NO_MOB);
-}*/
+}
