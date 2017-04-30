@@ -6,8 +6,8 @@
 #include "adc.h"
 #include "bms_can.h"
 
-constexpr uint32_t ID_BASE = 0x00C00000; //base ID for CAN Address
-//constexpr uint32_t BOARD_NUM = 0x0; 		//represents which board in the modules the current board is
+const uint32_t ID_BASE = 0x00C00000; //base ID for CAN Address
+const uint32_t BOARD_NUM = 0x0; 		//represents which board in the modules the current board is
 
 void readtemps(uint16_t*, uint8_t*);
 
