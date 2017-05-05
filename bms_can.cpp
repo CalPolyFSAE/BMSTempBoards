@@ -2,9 +2,9 @@
 #include "AVRLibrary/CPFECANLib.h"
 
 
-constexpr uint32_t ID_BASE;
+constexpr uint32_t ID_BASE = 0x00c00000;
 
-constexpr uint32_t BOARD_NUM;
+constexpr uint32_t BOARD_NUM = 0x2;
 
 //unsigned char can_get_mob_free(void);
 

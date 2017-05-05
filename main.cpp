@@ -68,8 +68,20 @@ void init(){
 
 void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 
+
+
 	ADMUX &= 0xE0;
-	ADMUX |= 0x03;
+	ADMUX |= 0x04;
+	for(int i = 0; i < 8; i++){
+		PORTC = i;
+		temperatures_16[43-i] = highPrecisionRead();
+	}
+	for(int i = 8; i < 16; i++){
+		PORTC = i;
+		temperatures_16[35-(i-8)] = highPrecisionRead();
+	}
+	ADMUX &= 0xE0;
+	ADMUX |= 0x04;//change to 03
 
 	for(int i = 0; i < 4; i++){
 		PORTC = i;
@@ -79,19 +91,6 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 		PORTC = i;
 		temperatures_16[27-(i-12)] = highPrecisionRead();
 	}
-
-	ADMUX &= 0xE0;
-	ADMUX |= 0x04;
-
-	for(int i = 0; i < 8; i++){
-		PORTC = i;
-		temperatures_16[43-i] = highPrecisionRead();
-	}
-	for(int i = 8; i < 16; i++){
-		PORTC = i;
-		temperatures_16[35-(i-8)] = highPrecisionRead();
-	}
-
 	ADMUX &= 0xE0;
 	ADMUX |= 0x05;
 
