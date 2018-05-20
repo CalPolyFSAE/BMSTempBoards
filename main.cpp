@@ -1,19 +1,21 @@
-//device name for io.h	
-#define __AVR_AT90CAN128__
+// To do: scrap everything, rewrite well
+
+#define F_CPU 16000000L
 
 #include <avr/io.h>
-#include <AVRLibrary/CPFECANLib.h>
+#include <util/delay.h>
+#include "AVRLibrary/CPFECANLib.h"
 #include "adc.h"
 #include "bms_can.h"
-
-constexpr uint32_t ID_BASE = 0x00C00000; //base ID for CAN Address
-//constexpr uint32_t BOARD_NUM = 0x0; 		//represents which board in the modules the current board is
 
 void readtemps(uint16_t*, uint8_t*);
 
 void init();
 
 int main(){
+
+	// Offset each board 250ms from each other to avoid dropping messages
+    // _delay_ms(0);
 
 	init();
 
@@ -24,6 +26,8 @@ int main(){
 	uint16_t temperatures_16[thermistorCount] = {0};
 
 	uint8_t temperatures_8[thermistorCount*2] = {0};
+
+	// PORTC = 15;
 
 	while(1) {
 
@@ -42,7 +46,7 @@ int main(){
 			
 			read = 0;
 
-		}		
+		}
 
 	}
 
@@ -61,27 +65,19 @@ void init(){
 
 	initADC();
 	
-	CPFECANLib::init(CPFECANLib::CAN_BAUDRATE::B1M, nullptr);
+	CPFECANLib::init(CPFECANLib::CAN_BAUDRATE::B500K, nullptr);
 
 }
 
 
 void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 
-
+	// ADMUX |= 0x07;
+	// PORTC = 2;
+	// temperatures_16[0] = highPrecisionRead();
 
 	ADMUX &= 0xE0;
-	ADMUX |= 0x04;
-	for(int i = 0; i < 8; i++){
-		PORTC = i;
-		temperatures_16[43-i] = highPrecisionRead();
-	}
-	for(int i = 8; i < 16; i++){
-		PORTC = i;
-		temperatures_16[35-(i-8)] = highPrecisionRead();
-	}
-	ADMUX &= 0xE0;
-	ADMUX |= 0x04;//change to 03
+	ADMUX |= 0x03;//change to 03
 
 	for(int i = 0; i < 4; i++){
 		PORTC = i;
@@ -91,6 +87,21 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 		PORTC = i;
 		temperatures_16[27-(i-12)] = highPrecisionRead();
 	}
+
+
+	ADMUX &= 0xE0;
+	ADMUX |= 0x04;
+	// _delay_ms(10);
+	for(int i = 0; i < 8; i++){
+		PORTC = i;
+		temperatures_16[43-i] = highPrecisionRead();
+	}
+	for(int i = 8; i < 16; i++){
+		PORTC = i;
+		temperatures_16[35-(i-8)] = highPrecisionRead();
+	}
+
+
 	ADMUX &= 0xE0;
 	ADMUX |= 0x05;
 
@@ -134,3 +145,4 @@ void readtemps(uint16_t* temperatures_16, uint8_t* temperatures_8){
 	}
 
 }
+
